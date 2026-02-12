@@ -1,6 +1,4 @@
----
-
-## 2. The Situation
+# The Situation
 
 StrataForge operates its own batching plant and routinely experiments with concrete mix proportions to:
 
