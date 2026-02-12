@@ -379,7 +379,7 @@ npm install
 npm run dev
 ```
 
-Opens a 9-slide interactive deck at `http://localhost:5173`.
+Opens a 9-slide interactive deck at `http://localhost:5173` with a **live strength calculator** — adjust sliders for cement, slag, water, superplasticizer, and age to see predicted strength and per-m³ cost savings in real time.
 
 ---
 
@@ -393,8 +393,9 @@ The `strataforge-presentation/` directory contains a **React + Vite** slide deck
 4. **Data & Method** — step-by-step pipeline from raw data to validated model
 5. **The Model** — final MLR formula with R², VIF, and assumptions stats
 6. **Fly Ash Finding** — all three hypothesis test results
-7. **Business Impact** — worked £21,600 saving example with CO₂ reduction
-8. **Summary** — key takeaways
+7. **Live Calculator** — interactive sliders predicting strength in real time with cost savings
+8. **Business Impact** — worked £21,600 saving example with CO₂ reduction
+9. **Summary** — key takeaways
 
 ---
 
@@ -448,6 +449,6 @@ The business context documents are in:
 
 ## Author
 
-Developed as an applied analytics initiative for StrataForge Construction Materials Ltd by Bright Uzosike.
+Developed as an applied analytics initiative for StrataForge Construction Materials Ltd by **Bright Uzosike**.
 
 *"Engineering Strength from the Ground Up"* — now backed by evidence.
