@@ -36,7 +36,7 @@ This resulted in:
 
 ---
 
-## 3. The Business Risk
+## The Business Risk
 
 Concrete compressive strength is not just a technical metric. It drives:
 
@@ -62,7 +62,7 @@ StrataForge needed clarity.
 
 ---
 
-## 4. The Analytics Initiative
+## The Analytics Initiative
 
 The executive team commissioned a predictive modelling project with three objectives:
 
