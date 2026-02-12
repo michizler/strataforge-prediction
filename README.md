@@ -393,9 +393,8 @@ The `strataforge-presentation/` directory contains a **React + Vite** slide deck
 4. **Data & Method** — step-by-step pipeline from raw data to validated model
 5. **The Model** — final MLR formula with R², VIF, and assumptions stats
 6. **Fly Ash Finding** — all three hypothesis test results
-7. **Live Calculator** — interactive sliders predicting strength in real time with cost savings
-8. **Business Impact** — worked £21,600 saving example with CO₂ reduction
-9. **Summary** — key takeaways
+7. **Business Impact** — worked £21,600 saving example with CO₂ reduction
+8. **Summary** — key takeaways
 
 ---
 
