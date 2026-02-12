@@ -452,3 +452,9 @@ The business context documents are in:
 Developed as an applied analytics initiative for StrataForge Construction Materials Ltd by **Bright Uzosike**.
 
 *"Engineering Strength from the Ground Up"* — now backed by evidence.
+
+---
+
+## Disclaimer
+
+This is a make-believe company based on real problems and complaints of manufacturing and construction companies scraped from blog articles and journals. No intellectual property was harmed in recreating this project. Any similarities to an organization's intelligence is purely coincidental.
