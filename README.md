@@ -379,7 +379,7 @@ npm install
 npm run dev
 ```
 
-Opens a 9-slide interactive deck at `http://localhost:5173` with a **live strength calculator** — adjust sliders for cement, slag, water, superplasticizer, and age to see predicted strength and per-m³ cost savings in real time.
+Opens a 9-slide interactive deck at `http://localhost:5173`.
 
 ---
 
