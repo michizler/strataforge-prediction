@@ -59,11 +59,11 @@ StrataForge operates its own batching plant and routinely experiments with concr
 
 However, without a predictive model, the business faced:
 
-| Challenge | Business Consequence |
-|-----------|---------------------|
-| Conservative cement-heavy mixes | Inflated material costs and higher carbon footprint |
-| Occasional 28-day strength failures | Rework, schedule delays, and reputation risk |
-| No data-driven mix design tool | Budget inefficiencies in procurement planning |
+| Challenge                             | Business Consequence                                       |
+| ------------------------------------- | ---------------------------------------------------------- |
+| Conservative cement-heavy mixes       | Inflated material costs and higher carbon footprint        |
+| Occasional 28-day strength failures   | Rework, schedule delays, and reputation risk               |
+| No data-driven mix design tool        | Budget inefficiencies in procurement planning              |
 | Uncertainty about fly ash performance | Reluctance to use cheaper, greener supplementary materials |
 
 Concrete compressive strength is not just a technical metric. It drives structural safety compliance, client approval milestones, insurance liability, project scheduling, and material procurement budgets. A predictive model addresses all five.
@@ -74,11 +74,11 @@ Concrete compressive strength is not just a technical metric. It drives structur
 
 The executive team commissioned this project with three clear objectives:
 
-| # | Objective | Approach |
-|---|-----------|----------|
-| **1** | Quantify how mix components influence compressive strength | Multiple Linear Regression with forward stepwise selection |
-| **2** | Determine whether fly ash affects performance | Kruskal-Wallis hypothesis testing |
-| **3** | Create a strength prediction tool for material optimisation | Validated regression formula with 81.35% R² |
+| #     | Objective                                                   | Approach                                                   |
+| ----- | ----------------------------------------------------------- | ---------------------------------------------------------- |
+| **1** | Quantify how mix components influence compressive strength  | Multiple Linear Regression with forward stepwise selection |
+| **2** | Determine whether fly ash affects performance               | Kruskal-Wallis hypothesis testing                          |
+| **3** | Create a strength prediction tool for material optimisation | Validated regression formula with 81.35% R²                |
 
 ---
 
@@ -86,17 +86,17 @@ The executive team commissioned this project with three clear objectives:
 
 The dataset contains **1,030 observations** across **9 continuous numerical variables** — entirely numeric with no missing values or categorical fields.
 
-| Variable | Unit | Description | Range |
-|----------|------|-------------|-------|
-| `cement` | kg/m³ | Portland cement content | 102 – 540 |
-| `slag` | kg/m³ | Blast furnace slag content | 0 – 359.4 |
-| `flyAsh` | kg/m³ | Fly ash content | 0 – 200.1 |
-| `water` | kg/m³ | Water content | 121.8 – 247 |
-| `superPlasticizer` | kg/m³ | Superplasticizer additive | 0 – 32.2 |
-| `coarseAgg` | kg/m³ | Coarse aggregate content | 801 – 1,145 |
-| `fineAgg` | kg/m³ | Fine aggregate content | 594 – 992.6 |
-| `age` | days | Curing time at testing | 1 – 365 |
-| `concrete_strength` | MPa | Measured compressive strength (target) | 2.33 – 82.6 |
+| Variable            | Unit  | Description                            | Range       |
+| ------------------- | ----- | -------------------------------------- | ----------- |
+| `cement`            | kg/m³ | Portland cement content                | 102 – 540   |
+| `slag`              | kg/m³ | Blast furnace slag content             | 0 – 359.4   |
+| `flyAsh`            | kg/m³ | Fly ash content                        | 0 – 200.1   |
+| `water`             | kg/m³ | Water content                          | 121.8 – 247 |
+| `superPlasticizer`  | kg/m³ | Superplasticizer additive              | 0 – 32.2    |
+| `coarseAgg`         | kg/m³ | Coarse aggregate content               | 801 – 1,145 |
+| `fineAgg`           | kg/m³ | Fine aggregate content                 | 594 – 992.6 |
+| `age`               | days  | Curing time at testing                 | 1 – 365     |
+| `concrete_strength` | MPa   | Measured compressive strength (target) | 2.33 – 82.6 |
 
 Two additional derived columns were present in the original dataset:
 
@@ -189,20 +189,20 @@ Rows where `superPlasticizer = 0` produced `-Inf` after log transformation. Thes
 
 Twelve candidate models were fitted, progressively adding predictors based on correlation strength and statistical significance:
 
-| Model | Predictors | R² | All p < 0.05? |
-|-------|-----------|-----|---------------|
-| model_0 | cement | 24.71% | ✅ |
-| model_1 | + superPlasticizer | 34.98% | ✅ |
-| model_2 | + age | 48.01% | ✅ |
-| model_3 | + water | 49.66% | ✅ |
-| model_4 | + fineAgg | 52.92% | ✅ |
-| model_5 | + coarseAgg | 56.81% | ⚠️ superPlasticizer weak |
-| model_6 | + slag | 59.43% | ✅ |
-| model_7 | + flyAsh | 61.55% | ❌ fineAgg, coarseAgg, intercept |
-| model_8 | swap: −slag +flyAsh | 57.30% | ✅ |
-| **model_9** | **log-transformed (cement, SP, water, age, slag)** | **81.35%** | **✅** |
-| model_10 | + fineAgg | 81.62% | ⚠️ marginal improvement |
-| model_11 | + fineAgg + coarseAgg | 81.70% | ❌ fineAgg, coarseAgg insignificant |
+| Model       | Predictors                                         | R²         | All p < 0.05?                       |
+| ----------- | -------------------------------------------------- | ---------- | ----------------------------------- |
+| model_0     | cement                                             | 24.71%     | ✅                                  |
+| model_1     | + superPlasticizer                                 | 34.98%     | ✅                                  |
+| model_2     | + age                                              | 48.01%     | ✅                                  |
+| model_3     | + water                                            | 49.66%     | ✅                                  |
+| model_4     | + fineAgg                                          | 52.92%     | ✅                                  |
+| model_5     | + coarseAgg                                        | 56.81%     | ⚠️ superPlasticizer weak            |
+| model_6     | + slag                                             | 59.43%     | ✅                                  |
+| model_7     | + flyAsh                                           | 61.55%     | ❌ fineAgg, coarseAgg, intercept    |
+| model_8     | swap: −slag +flyAsh                                | 57.30%     | ✅                                  |
+| **model_9** | **log-transformed (cement, SP, water, age, slag)** | **81.35%** | **✅**                              |
+| model_10    | + fineAgg                                          | 81.62%     | ⚠️ marginal improvement             |
+| model_11    | + fineAgg + coarseAgg                              | 81.70%     | ❌ fineAgg, coarseAgg insignificant |
 
 **Model 9 was selected** — the best balance of explanatory power (R² = 81.35%) and statistical validity (all coefficients significant at p < 0.001).
 
@@ -210,13 +210,13 @@ Twelve candidate models were fitted, progressively adding predictors based on co
 
 All five classical MLR assumptions were tested and passed:
 
-| Assumption | Method | Result |
-|------------|--------|--------|
-| **Linearity** | Scatterplot matrix (pairs plot) | ✅ Clear linear trends for cement, age, water |
-| **Residual Independence** | Residuals vs Fitted plot | ✅ Randomly scattered around zero |
-| **Normality of Residuals** | Q-Q plot | ✅ Points follow diagonal reference line |
-| **Homoscedasticity** | Scale-Location plot | ✅ No funnel shape; constant variance |
-| **No Multicollinearity** | VIF (Variance Inflation Factor) | ✅ All VIF values between 1.01 – 1.49 |
+| Assumption                 | Method                          | Result                                        |
+| -------------------------- | ------------------------------- | --------------------------------------------- |
+| **Linearity**              | Scatterplot matrix (pairs plot) | ✅ Clear linear trends for cement, age, water |
+| **Residual Independence**  | Residuals vs Fitted plot        | ✅ Randomly scattered around zero             |
+| **Normality of Residuals** | Q-Q plot                        | ✅ Points follow diagonal reference line      |
+| **Homoscedasticity**       | Scale-Location plot             | ✅ No funnel shape; constant variance         |
+| **No Multicollinearity**   | VIF (Variance Inflation Factor) | ✅ All VIF values between 1.01 – 1.49         |
 
 ---
 
@@ -226,13 +226,13 @@ All five classical MLR assumptions were tested and passed:
 
 Based on the final MLR model coefficients:
 
-| Factor | Effect on Strength | Coefficient | Interpretation |
-|--------|-------------------|-------------|----------------|
-| **Cement** | ↑ Strong positive | +0.0974 | Each additional kg/m³ of cement increases strength by ~0.1 MPa |
-| **Age (logged)** | ↑ Strong positive | +9.759 | Longer curing dramatically increases strength (diminishing returns) |
-| **Slag** | ↑ Moderate positive | +0.0683 | Slag is a viable strength contributor — not just filler |
-| **Water** | ↓ Negative | −0.2374 | More water weakens concrete — the water-cement ratio is critical |
-| **Superplasticizer (logged)** | ↓ Negative | −2.545 | Reduces strength at higher dosages; used for workability, not strength |
+| Factor                        | Effect on Strength  | Coefficient | Interpretation                                                         |
+| ----------------------------- | ------------------- | ----------- | ---------------------------------------------------------------------- |
+| **Cement**                    | ↑ Strong positive   | +0.0974     | Each additional kg/m³ of cement increases strength by ~0.1 MPa         |
+| **Age (logged)**              | ↑ Strong positive   | +9.759      | Longer curing dramatically increases strength (diminishing returns)    |
+| **Slag**                      | ↑ Moderate positive | +0.0683     | Slag is a viable strength contributor — not just filler                |
+| **Water**                     | ↓ Negative          | −0.2374     | More water weakens concrete — the water-cement ratio is critical       |
+| **Superplasticizer (logged)** | ↓ Negative          | −2.545      | Reduces strength at higher dosages; used for workability, not strength |
 
 ### What Doesn't Affect Strength?
 
@@ -255,13 +255,13 @@ concrete_strength = 23.914
 
 **Example prediction:**
 
-| Input | Value |
-|-------|-------|
-| Cement | 520 kg/m³ |
+| Input            | Value     |
+| ---------------- | --------- |
+| Cement           | 520 kg/m³ |
 | Superplasticizer | 3.0 kg/m³ |
-| Water | 125 kg/m³ |
-| Slag | 200 kg/m³ |
-| Age | 97 days |
+| Water            | 125 kg/m³ |
+| Slag             | 200 kg/m³ |
+| Age              | 97 days   |
 
 ```
 Strength = 23.914 + (0.0974 × 520) − (2.545 × ln(3)) − (0.2374 × 125) + (9.759 × ln(97)) + (0.0683 × 200)
@@ -289,31 +289,31 @@ Three hypothesis tests were conducted to understand the categorical structure of
 
 ### Test 1: Does Concrete Category Affect Strength?
 
-| Detail | Value |
-|--------|-------|
-| Test | Kruskal-Wallis (non-parametric; Shapiro-Wilk normality test failed) |
-| H₀ | μ(coarse) = μ(fine) |
-| H₁ | μ(coarse) ≠ μ(fine) |
-| p-value | **0.3364** |
-| Decision | **Fail to reject H₀** — no significant difference |
+| Detail   | Value                                                               |
+| -------- | ------------------------------------------------------------------- |
+| Test     | Kruskal-Wallis (non-parametric; Shapiro-Wilk normality test failed) |
+| H₀       | μ(coarse) = μ(fine)                                                 |
+| H₁       | μ(coarse) ≠ μ(fine)                                                 |
+| p-value  | **0.3364**                                                          |
+| Decision | **Fail to reject H₀** — no significant difference                   |
 
 ### Test 2: Does Fly Ash Affect Strength?
 
-| Detail | Value |
-|--------|-------|
-| Test | Kruskal-Wallis |
-| H₀ | μ(no fly ash) = μ(fly ash) |
-| H₁ | μ(no fly ash) ≠ μ(fly ash) |
-| p-value | **0.2324** |
+| Detail   | Value                                                    |
+| -------- | -------------------------------------------------------- |
+| Test     | Kruskal-Wallis                                           |
+| H₀       | μ(no fly ash) = μ(fly ash)                               |
+| H₁       | μ(no fly ash) ≠ μ(fly ash)                               |
+| p-value  | **0.2324**                                               |
 | Decision | **Fail to reject H₀** — fly ash does not reduce strength |
 
 ### Test 3: Is There an Association Between Category and Fly Ash Use?
 
-| Detail | Value |
-|--------|-------|
-| Test | Pearson's Chi-Square test of independence |
-| H₀ | Concrete category and fly ash use are independent |
-| p-value | **0.9812** |
+| Detail   | Value                                             |
+| -------- | ------------------------------------------------- |
+| Test     | Pearson's Chi-Square test of independence         |
+| H₀       | Concrete category and fly ash use are independent |
+| p-value  | **0.9812**                                        |
 | Decision | **Fail to reject H₀** — no association whatsoever |
 
 **Why this matters:** Fly ash is significantly cheaper than cement and has a lower carbon footprint. The statistical evidence confirms that construction firms can substitute fly ash into their mixes **without sacrificing compressive strength** — enabling simultaneous cost reduction and sustainability improvement.
@@ -326,20 +326,20 @@ Three hypothesis tests were conducted to understand the categorical structure of
 
 Consider a typical commercial warehouse foundation requiring **2,000 m³** of C30-grade concrete:
 
-| | Conservative Mix (Before) | Optimised Mix (After) |
-|---|---|---|
-| **Cement** | 400 kg/m³ | 310 kg/m³ |
-| **Slag** | 0 kg/m³ | 100 kg/m³ |
-| **Cement cost per m³** | £48.00 | £37.20 |
-| **Total cement cost** | £96,000 | £74,400 |
+|                        | Conservative Mix (Before) | Optimised Mix (After)       |
+| ---------------------- | ------------------------- | --------------------------- |
+| **Cement**             | 400 kg/m³                 | 310 kg/m³                   |
+| **Slag**               | 0 kg/m³                   | 100 kg/m³                   |
+| **Cement cost per m³** | £48.00                    | £37.20                      |
+| **Total cement cost**  | £96,000                   | £74,400                     |
 | **Predicted strength** | Unknown (over-engineered) | ~38 MPa (verified by model) |
 
-| Metric | Value |
-|--------|-------|
-| **Cost saving (single project)** | **£21,600** |
-| **Cost reduction** | **22.5%** |
-| **CO₂ reduction** | **~180 tonnes** (from 90 kg/m³ less cement × 2,000 m³) |
-| **Strength confidence** | Model-verified before pouring |
+| Metric                           | Value                                                  |
+| -------------------------------- | ------------------------------------------------------ |
+| **Cost saving (single project)** | **£21,600**                                            |
+| **Cost reduction**               | **22.5%**                                              |
+| **CO₂ reduction**                | **~180 tonnes** (from 90 kg/m³ less cement × 2,000 m³) |
+| **Strength confidence**          | Model-verified before pouring                          |
 
 Across a portfolio of 10–15 projects per year, this translates to potential annual savings of **£200,000–£300,000** while simultaneously reducing carbon emissions and improving quality assurance.
 
@@ -432,17 +432,17 @@ The business context documents are in:
 
 ## Tech Stack
 
-| Tool | Purpose |
-|------|---------|
-| **R 4.5.2** | Statistical computing and modelling |
-| **ggplot2** | Data visualisation (histograms, boxplots, scatterplots) |
-| **dplyr** | Data manipulation and transformation |
-| **readxl** | Excel file loading |
-| **corrplot** | Correlation matrix visualisation |
-| **car** | VIF (multicollinearity) testing |
-| **caret** | Variable importance analysis |
-| **RVAideMemoire** | Shapiro-Wilk normality testing by group |
-| **React + Vite** | Interactive presentation with live calculator |
+| Tool              | Purpose                                                 |
+| ----------------- | ------------------------------------------------------- |
+| **R 4.5.2**       | Statistical computing and modelling                     |
+| **ggplot2**       | Data visualisation (histograms, boxplots, scatterplots) |
+| **dplyr**         | Data manipulation and transformation                    |
+| **readxl**        | Excel file loading                                      |
+| **corrplot**      | Correlation matrix visualisation                        |
+| **car**           | VIF (multicollinearity) testing                         |
+| **caret**         | Variable importance analysis                            |
+| **RVAideMemoire** | Shapiro-Wilk normality testing by group                 |
+| **React + Vite**  | Interactive presentation with live calculator           |
 
 ---
 
@@ -450,7 +450,7 @@ The business context documents are in:
 
 Developed as an applied analytics initiative for StrataForge Construction Materials Ltd by **Bright Uzosike**.
 
-*"Engineering Strength from the Ground Up"* — now backed by evidence.
+_"Engineering Strength from the Ground Up"_ — now backed by evidence.
 
 ---
 
