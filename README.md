@@ -4,7 +4,6 @@
 
 [![R](https://img.shields.io/badge/R-4.5.2-276DC3?style=for-the-badge&logo=r&logoColor=white)](https://www.r-project.org/)
 [![Status](https://img.shields.io/badge/Status-Complete-10B981?style=for-the-badge)]()
-[![License](https://img.shields.io/badge/License-Academic-F59E0B?style=for-the-badge)]()
 
 ---
 
